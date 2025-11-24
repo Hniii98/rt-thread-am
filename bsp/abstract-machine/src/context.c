@@ -31,6 +31,9 @@ static Context* ev_handler(Event e, Context *c) {
       if(src) *src = c;
       c = *dst;
       break;
+    case EVENT_IRQ_TIMER:
+      // Do nothing for now.  
+      break;
     default: printf("Unhandled event ID = %d\n", e.event); assert(0);
   }
  return c;
@@ -68,7 +71,7 @@ rt_uint8_t *rt_hw_stack_init(void *tentry, void *parameter, rt_uint8_t *stack_ad
   pack->entry = tentry;
   pack->parameter = parameter;
   pack->exit = texit;
-  
+
   // Construct a context at stack top
   Context *c = kcontext((Area){(void *)top, (void *)buttom}, __wrapper, (void *)pack);
 
