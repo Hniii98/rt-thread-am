@@ -34,9 +34,10 @@ static void __wrapper(void *arg) {
 }
 
 static Context* ev_handler(Event e, Context *c) {
+  SwitchPack *spack = NULL;
   switch (e.event) {
     case EVENT_YIELD:
-      SwitchPack *spack =(SwitchPack *)rt_thread_self()->user_data;
+      spack =(SwitchPack *)rt_thread_self()->user_data;
       if(spack->from){
         // Store current context *.
         *(Context **)spack->from = c;
